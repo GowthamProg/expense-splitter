@@ -7,6 +7,8 @@ const Login = () =>{
     const [password,setpassword]=useState('');
     const location=useLocation();
 
+
+    
     const handlelog = async ()=>{
         console.log("login with : ",{username,password});
         const response= await fetch("http://localhost:5000/Login",{
