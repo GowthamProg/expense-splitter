@@ -5,8 +5,8 @@ import { BrowserRouter as Router,Route,Routes,Link,useNavigate } from "react-rou
 import './Allstyles/Registor.css';
 const Registor =()=>{
     const [username,setusername]=useState('');
-    const [password,setpassword]=useState('');
-    const [mobileno,setmobileno]=useState('');
+    const [password,setpassword]=useState(null);
+    const [mobileno,setmobileno]=useState(null);
 
     const handlereg =async(e)=>{
         e.preventDefault();
@@ -25,18 +25,20 @@ const Registor =()=>{
 
     return (
         <div className="Registor">
+            <form>
         <h2>REGISTOR</h2>
         <label>Username : </label>
-        <input type='text' placeholder='Username' value={username} onChange={(e)=>setusername(e.target.value)}/>
+        <input type='text' placeholder='Username' value={username} onChange={(e)=>setusername(e.target.value)} required/>
         <br/>
         <label>password : </label>
-        <input type='text' placeholder='password' value={password} onChange={(e)=> setpassword(e.target.value)} />
+        <input type='text' placeholder='password' value={password} onChange={(e)=> setpassword(e.target.value)} required/>
         <br/>
         <label>Phone number : </label>
-        <input type='number' placeholder='mobile no' value={mobileno} onChange={(e)=> setmobileno(e.target.value)} />
+        <input type='number' placeholder='mobile no' value={mobileno} onChange={(e)=> setmobileno(e.target.value)} required/>
         <br/>
-        <button onClick={handlereg}> Registor </button>
-        <button onClick={()=>navigate('/Login')}> Login </button>
+        <button type="submit" onClick={handlereg}> Registor </button>
+        <button onClick={()=>navigate('/')}> Login </button>
+        </form>
     </div>
     )
 };

@@ -2,8 +2,9 @@
 
 const express= require('express');
 const { MongoClient } = require('mongodb');
-const bodyparser =require('body-parser');
+const bodyparser = require('body-parser');
 const cors =require('cors');
+const jwt =require('jsonwebtoken');
 
 const app=express();
 app.use(bodyparser.json());
@@ -11,10 +12,16 @@ app.use(cors());
 
 const uri="mongodb://localhost:27017/Expensetrack";
 const client = new MongoClient(uri);
+const Secret_key='NzVkYjFlNjg3OTkxMDYxYmRjNzJkNzc2OGYyNjBlYmIzNDYyYjUzYjVkMzVkZmE3';
 
+let collection;
 async function connectToDatabase(){
-    await client.connect();
-    return client.db().collection('user');
+    if(!collection)
+    {
+        await client.connect();
+        return client.db().collection('user');
+    }
+    return collection;
 }
 
 
@@ -25,19 +32,19 @@ app.post('/Login',async(req,res)=>{
         const usercollection =await connectToDatabase();
         const useravailable = await usercollection.findOne({username,password});
         if(useravailable){
+            const token=jwt.sign({username},Secret_key,{expiresIn: '1h'});
             return res.status(200).json({
                 message:"Login successfull",
                 username:useravailable.username,
+                token
             });
         }
-        res.status(400).json({
-            message:"Invalid credentials"
-        });
+        res.status(400).json({ message:"Invalid credentials" });
     }catch(error)
     {
         res.status(500).json({message:"Login failed",error});
     }
-})
+});
 
 
 //handle to post
@@ -55,6 +62,23 @@ app.post('/Registor',async(req,res)=>{
         res.status(500).json({message:"Error",error});
     }
 });
+
+//token handling
+app.get('/validate-token',(req,res)=>{
+    const token= req.headers.authorization?.split(' ')[1];
+    if(!token)
+    {return res.status(401).json({message:"TOken missing"})};
+
+    try{
+        const decode =jwt.verify(token,Secret_key);
+        return res.status(200).json({valid:true,decode});
+    }catch(err){
+        return res.status(401).json({valid:false,message:"Invalid token"});
+    }
+});
+
+
+
 
 const PORT= 5000;//process.env.PORT ||
 app.listen(PORT,()=>{
