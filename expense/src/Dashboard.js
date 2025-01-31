@@ -7,7 +7,7 @@ const Dashboard =()=>{
     const username=location.state?.username;
     const handlelogout =()=>{
         localStorage.removeItem('token');
-        navigate('/Login');
+        navigate('/');
         alert('Loged out');
     }
 

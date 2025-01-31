@@ -1,10 +1,32 @@
 .Loginpage{
     text-align: center;
     background-color: rgb(172, 221, 199);
-    position:absolute;
-    top: 40%;
-    left: 40%;
-    width: 300px;
-    height: 150px;
-  };
+    padding: 3rem;
+    border-radius: 10%;
+  }
   
+  .inbox{
+    padding: 1%;
+    margin: 2%;
+  }
+
+  .login{
+    width: 15%;
+    height: 8%;
+    border-radius: 10%
+  }
+
+  .button{
+    padding: 5px;
+    border: radius 10%;
+    background-color: aquamarine ;
+    align-items: center;
+  }
+  
+
+  .home-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
