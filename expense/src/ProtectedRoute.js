@@ -10,7 +10,7 @@ const ProtectedRoute = ({children}) => {
         const token=localStorage.getItem('token');
         if(!token) {
           alert("Token not found");
-          navigate("/Login");
+          navigate("/");
           return;
          }
 

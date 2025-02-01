@@ -6,6 +6,7 @@ import Registor from './Registor';
 import './Allstyles/App.css';
 import ProtectedRoute from './ProtectedRoute';
 import Dashboard from './Dashboard';
+import Members from './Members';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/Registor" element={<Registor />} />
         {/* <Route path="/Login" element={<Login />} /> */}
         <Route path="/Dashboard" element={ <ProtectedRoute><Dashboard/></ProtectedRoute>} />
+        <Route path="/Members" element={<Members/>}></Route>
 
       </Routes>
     </div>

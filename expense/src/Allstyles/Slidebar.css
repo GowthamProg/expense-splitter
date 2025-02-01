@@ -1,0 +1,66 @@
+.app-container {
+    display: flex;
+    height: 100vh;
+    top:0px;
+    left: 0px;
+    overflow: hidden;
+    background-color: #5a5b49;
+    position: fixed;
+    width: 0px;
+    z-index: 0;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .app-container.open{
+    width: 200px;
+  }
+
+  .toggle-button{
+    position: absolute;
+    top:10px;
+    left: 10px;
+    z-index: 10000;
+    color: aqua;
+    background: none;
+    border: none;
+    font-size:30px;
+  }
+  .sidebar {
+    margin-top:50px;
+    
+  }
+
+  .sidebarbutton{
+    width: 100%;
+    background:none;
+    border: none;
+    color: aliceblue;
+    height: 7%;
+  }
+  .sidebarbutton:hover{
+    background-color: #48483b;
+  }
+  
+  
+  
+  
+  .content {
+    flex-grow: 2;
+    margin-left: 25px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .content .toggle-button {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .app-container.open + .content {
+    margin-left: 200px;
+  }
+  
