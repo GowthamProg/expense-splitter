@@ -1,0 +1,68 @@
+.createbox{
+    padding: 20px;
+    width: 12%;
+    height: auto;
+    background-color: rgb(207, 189, 223);
+    border-radius: 8%;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    height: fit-content;
+    padding: 3%;
+    background-color: rgb(182, 168, 40);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form input {
+    width: 100%; /* Full width of the form */
+    margin-bottom: 15px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.subbutton {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(50, 218, 31);
+    color: white;
+    cursor: pointer;
+}
+
+.clbutton {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(174, 13, 13);
+    color: white;
+    cursor: pointer;
+}
+.form-buttons{
+    display:flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.form button:hover {
+    background-color: #444;
+}
+
+
+.form.active {
+    transform: translate(-50%, -50%) scale(1);
+}

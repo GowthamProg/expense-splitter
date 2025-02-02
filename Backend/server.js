@@ -47,7 +47,7 @@ app.post('/Login',async(req,res)=>{
 });
 
 
-//handle to post
+//handle to registor
 app.post('/Registor',async(req,res)=>{
     const {username,password,mobileno} = req.body;
     try{
@@ -63,6 +63,21 @@ app.post('/Registor',async(req,res)=>{
     }
 });
 
+
+
+//handle to add frnds number
+app.post('/Members',async(req,res)=>{
+    const {frndname,frndnumber} = req.body;
+    try{
+        const usercollection=await connectToDatabase();
+        await usercollection.insertOne({frndname,frndnumber});
+        res.status(201).json({message:"Reg sucessfull"});
+    }catch(error){
+        res.status(500).json({message:"Error", error});
+    }
+});
+
+
 //token handling
 app.get('/validate-token',(req,res)=>{
     const token= req.headers.authorization?.split(' ')[1];
@@ -76,9 +91,6 @@ app.get('/validate-token',(req,res)=>{
         return res.status(401).json({valid:false,message:"Invalid token"});
     }
 });
-
-
-
 
 const PORT= 5000;//process.env.PORT ||
 app.listen(PORT,()=>{
