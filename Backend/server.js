@@ -82,6 +82,22 @@ app.post('/Registor',async(req,res)=>{
 });
 
 
+//token handling
+app.get('/validate-token',(req,res)=>{
+    const token= req.headers.authorization?.split(' ')[1];
+    if(!token)
+    {return res.status(401).json({message:"TOken missing"})};
+
+    try{
+        const decode =jwt.verify(token,Secret_key);
+        return res.status(200).json({valid:true,decode});
+    }catch(err){
+        return res.status(401).json({valid:false,message:"Invalid token"});
+    }
+});
+
+
+
 
 //handle to add frnds number
 app.post('/Members',async(req,res)=>{
@@ -106,19 +122,29 @@ app.post('/Members',async(req,res)=>{
 });
 
 
-//token handling
-app.get('/validate-token',(req,res)=>{
-    const token= req.headers.authorization?.split(' ')[1];
-    if(!token)
-    {return res.status(401).json({message:"TOken missing"})};
+// handle to show frnds details in friends page
+app.get('/Members/:username',async(req,res)=>{
+    const {username} =req.params;
 
     try{
-        const decode =jwt.verify(token,Secret_key);
-        return res.status(200).json({valid:true,decode});
-    }catch(err){
-        return res.status(401).json({valid:false,message:"Invalid token"});
+        const usercollection = await connectToDatabase();
+        const userdataCollection =await connectTouserDatabase();
+
+        const user =await usercollection.findOne({username});
+        if(!user ) { 
+            return res.status(404).json({message:"User not found"}); }
+        
+        const userdata = await userdataCollection.findOne({user_id:user._id});
+        if(!userdata || !userdata.friends){
+            return res.status(200).json({friends : []});}
+        
+        res.status(200).json({friends : userdata.friends});
+    } catch(error){
+        res.status(500).json({message: "Error fetching data ",error});
     }
 });
+
+
 
 const PORT= 5000;//process.env.PORT ||
 app.listen(PORT,()=>{

@@ -4,6 +4,17 @@
     height: auto;
     background-color: rgb(207, 189, 223);
     border-radius: 8%;
+    border-style: none;
+}
+
+.friends-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    align-content: space-between;
+    flex-wrap: wrap;
+    flex:start;
+
 }
 .form {
     display: flex;
