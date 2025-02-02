@@ -15,6 +15,7 @@ const Login = () =>{
             body : JSON.stringify({username,password})
         });
         const data =await response.json();
+        localStorage.setItem('username',data.username);
         if(response.ok) 
         {
             alert(data.message);

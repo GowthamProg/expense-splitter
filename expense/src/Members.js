@@ -8,11 +8,12 @@ import './Allstyles/Addmember.css';
 
   const handlepost = async (e) =>{
     e.preventDefault();
-    console.log({frndname,frndnumber});
+    const username = localStorage.getItem('username');
+    console.log({username,frndname,frndnumber});
     const response =await fetch("http://localhost:5000/Members",{
       method:"POST",
       headers:{"content-Type" : "application/json"},
-      body : JSON.stringify({frndname,frndnumber})
+      body : JSON.stringify({username,frndname,frndnumber})
     });
     const data =response.json();
     if(response.ok)

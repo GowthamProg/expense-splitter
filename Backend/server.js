@@ -19,12 +19,22 @@ async function connectToDatabase(){
     if(!collection)
     {
         await client.connect();
-        return client.db().collection('user');
+        collection = client.db("Expensetrack").collection('user');
     }
     return collection;
 }
 
+let collectionuser;
+async function connectTouserDatabase(){
+    if(!collectionuser)
+    {
+        await client.connect();
+        collectionuser= client.db("Expensetrack").collection('user_frnds');
+    }
+    return collectionuser;
+}
 
+    
 //handle to login
 app.post('/Login',async(req,res)=>{
     const {username,password} =req.body;
@@ -52,11 +62,19 @@ app.post('/Registor',async(req,res)=>{
     const {username,password,mobileno} = req.body;
     try{
         const usersCollection =await connectToDatabase();
+        const userdataCollection =await connectTouserDatabase();
+
         const userexists = await usersCollection.findOne({username});
         if(userexists){
             return res.status(400).json({message:"Username already taken"});
         }
-        await usersCollection.insertOne({username,password,mobileno});
+        const newuser = await usersCollection.insertOne({username,password,mobileno});
+
+        await userdataCollection.insertOne({
+            user_id:newuser.insertedId,
+            username:username,
+            friends: []
+        });
         res.status(201).json({message:"Reg sucessfull"});
     }catch(error){
         res.status(500).json({message:"Error",error});
@@ -67,10 +85,20 @@ app.post('/Registor',async(req,res)=>{
 
 //handle to add frnds number
 app.post('/Members',async(req,res)=>{
-    const {frndname,frndnumber} = req.body;
+    const {username,frndname,frndnumber} = req.body;
     try{
         const usercollection=await connectToDatabase();
-        await usercollection.insertOne({frndname,frndnumber});
+        const userdataCollection =await connectTouserDatabase();
+
+        const user =await usercollection.findOne({username});
+        if(!user)
+        { return res.status(404).json({message:"User not found"});}
+
+        const update = await userdataCollection.updateOne(
+            {user_id :user._id},
+            {$push : {friends :{ frndname,frndnumber}}}
+        )
+        // await usercollection.insertOne({frndname,frndnumber});
         res.status(201).json({message:"Reg sucessfull"});
     }catch(error){
         res.status(500).json({message:"Error", error});
