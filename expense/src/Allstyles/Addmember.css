@@ -1,21 +1,32 @@
-.createbox{
+.createboxadd{
     padding: 20px;
-    width: 12%;
+    width: 10%;
     height: auto;
     background-color: rgb(207, 189, 223);
     border-radius: 8%;
     border-style: none;
+    text-align: center;
+    margin: 1%;
 }
 
 .friends-container{
     display: flex;
-    justify-content: space-between;
-    margin: 0;
-    align-content: space-between;
     flex-wrap: wrap;
-    flex:start;
-
 }
+
+.hover{
+    position: relative;
+    margin-top: 10% ;
+    background-color: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 1%;
+    /* padding: 0%; */
+    /* height: 30%; */
+    
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -76,4 +87,11 @@
 
 .form.active {
     transform: translate(-50%, -50%) scale(1);
+}
+
+.edit-button{
+    border-radius: 10%;
+    border: none;
+    padding: 3% 7%;
+    background-color: rgb(211, 88, 230);;
 }

@@ -145,6 +145,60 @@ app.get('/Members/:username',async(req,res)=>{
 });
 
 
+//handle to update the friends in the member page
+app.put('/Members/:username/:frndname' ,async(req,res) =>{
+    const {username,frndname} =req.params;
+    const {updateFrndname , updateFrndNumber} = req.body;
+    try{
+        const userfrndcollection= await connectTouserDatabase();
+        const result = await userfrndcollection.updateOne(
+            {username,frndname},
+            {$set: {frndname :updateFrndname,frndnumber:updateFrndNumber}}
+        );
+        if(result.modifiedcount === 0)
+            return res.status(404).json({message:"Friend not found"});
+        res.status(200).json({message:"updated sucessfully"});
+    }catch(error){
+        res.status(500).json({message:"Error updating",error});
+    }
+});
+
+
+//handle to delete the friend in the member page
+app.delete('/Members/:username/:frndname',async(req,res)=>{
+    const {username , frndname} = req.params;
+    console.log(username,frndname); 
+try{
+    const userdatacollection = await connectTouserDatabase();
+    const result = userdatacollection.updateOne(
+        {username},
+        {$pull:{friends : {frndname}}}
+    );
+    
+    if(result.modifiedcount===0) 
+        return res.status(404).json({message:"Freind not found"});
+    res.status(200).json({message:"Deleted"});
+}catch(error){
+    res.status(500).json({message:"Error",error});
+}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const PORT= 5000;//process.env.PORT ||
 app.listen(PORT,()=>{
