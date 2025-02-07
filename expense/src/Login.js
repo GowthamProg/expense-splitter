@@ -1,10 +1,10 @@
 import React,{useState} from 'react';
-import {BrowserRouter as Link, useLocation, useNavigate} from 'react-router-dom';
+import {BrowserRouter as useLocation, useNavigate} from 'react-router-dom';
 import "./Allstyles/Loginpage.css";
 const Login = () =>{
     const [username,setusername]=useState('');
     const [password,setpassword]=useState('');
-    const location=useLocation();
+    //const location=useLocation();
     const navigate = useNavigate();
 
     const handlelog = async ()=>{

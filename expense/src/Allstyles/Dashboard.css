@@ -1,0 +1,24 @@
+.Dashlogout{
+    background-color:rgb(27, 213, 234);
+    width: 70px;
+    height: 40px;
+    border-radius:10px ;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+.dcreate{
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    border-radius: 5%;
+    border-style : none;
+    background: white;
+    background-color: rgb(202, 181, 221);
+}

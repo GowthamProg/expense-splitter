@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import './Allstyles/Dashlogout.css';
+import './Allstyles/Dashboard.css';
 import Slidebar from "./Sidebar";
 
 const Dashboard =()=>{
@@ -20,7 +20,8 @@ const Dashboard =()=>{
             <div className="content">
                 <button className="Dashlogout" onClick={handlelogout}> Logout</button>
                 <h2>Dashboard</h2>
-                <span>Welcome ,. {username}!</span>
+                <span>Welcome ,. {username}!</span><br/>
+                 <button className="dcreate" > hello</button>
             </div>
         </div>
     );

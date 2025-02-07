@@ -29,14 +29,14 @@ const ProtectedRoute = ({children}) => {
           {
             alert ('invalid token, redirect to login');
             localStorage.removeItem('token');
-            navigate('/Login');
+            navigate('/');
           }
          }
          catch(err)
          {
           console.error("Validation error",err);
           localStorage.removeItem('token');
-          navigate('/Login');
+          navigate('/');
          }
          //return <Navigate to='/Login'/>
         }
