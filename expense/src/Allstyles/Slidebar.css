@@ -36,9 +36,10 @@
     border: none;
     color: aliceblue;
     height: 7%;
+    padding-top: 3%;
   }
   .sidebarbutton:hover{
-    background-color: #5a5b49;
+    background-color: #a1a54a;
   }
   
   

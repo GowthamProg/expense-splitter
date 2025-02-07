@@ -14,7 +14,6 @@ import './Allstyles/Addmember.css';
   const [friends,setFriends] =useState([]);
   const username = localStorage.getItem('username');
 
-  const handlehover =() =>{setHover(!hover)};
 
   //fetch data from database
   useEffect(()=>{
@@ -110,13 +109,14 @@ const handleupdate =async(e) =>{
                </div>
              </form>
             )}
+
             <div className='friends-container'>
-                {friends.map((friends,index) => (
-                  <div onClick={()=>handlehover()} key={index} className='createboxadd'>
-                    {friends.frndname} <br/> {friends.frndnumber}<br/>
-                        {hover && (<div className='hover'>
-                            <button onClick={()=>handleEdit(friends)} className='edit-button'>Edit </button>
-                            <button onClick={()=>handledeletefrnd(friends.frndname)} className='edit-button'>delete </button>
+                {friends.map((friend,index) => (
+                  <div  key={index} onClick={()=>setHover(!hover)} className='createboxadd'>      {/* //onClick={()=>handlehover(friend.frndname) */}
+                    {friend.frndname} <br/> {friend.frndnumber}<br/>
+                        {hover &&  (<div className='hover'>
+                            <button onClick={()=>handleEdit(friend)} className='edit-button'>Edit </button>
+                            <button onClick={()=>handledeletefrnd(friend.frndname)} className='edit-button'>delete </button>
                         </div>)}
                   </div>
                 ))}
