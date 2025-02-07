@@ -20,7 +20,8 @@ const Login = () =>{
         {
             alert(data.message);
             localStorage.setItem('token',data.token);
-            navigate('/dashboard',{state:{username:data.username}});
+            //navigate('/dashboard',{state:{username:data.username}});
+            navigate('/dashboard');
             console.log(data.token);
         }
         else alert(data.message);

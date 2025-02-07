@@ -92,6 +92,7 @@ const handleupdate =async(e) =>{
         (friends => friends.frndname === editfrnd.frndname ? {frndname :newfrndname ,frndnumber: newfrndnumber} : friends ));
       setEditfrnd(null);
       }else alert("Failed to update");
+      SetEditappear(false)
 };
 
 

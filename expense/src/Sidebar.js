@@ -14,8 +14,8 @@ export default function Sidebar() {
     </button>
     <div className={`app-container ${isOpen ? "open" : ""} `}>
         <div className="sidebar">
+          <button className="sidebarbutton" onClick={()=>navigate('/Dashboard')}>Dashboard </button>
           <button className="sidebarbutton" onClick={()=>navigate('/Members')}>Members</button>
-          <button className="sidebarbutton">Option 2</button>
           <button className="sidebarbutton">Option 3</button>
           <button className="sidebarbutton">Option 4</button>
           <button className="sidebarbutton">Option 5</button>

@@ -1,13 +1,13 @@
-import React,{useState} from "react";
+import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import './Allstyles/Dashlogout.css';
 import Slidebar from "./Sidebar";
 
 const Dashboard =()=>{
-    const location=useLocation();
     const navigate = useNavigate();
-    
-    const username=location.state?.username;
+    const username=localStorage.getItem('username');
+    // const location=useLocation();
+    // const username=location.state?.username;
     const handlelogout =()=>{
         localStorage.removeItem('token');
         navigate('/');
