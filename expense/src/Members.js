@@ -14,6 +14,12 @@ import './Allstyles/Addmember.css';
   const [friends,setFriends] =useState([]);
   const username = localStorage.getItem('username');
 
+//to remove the space at the last of the input. setter = setFrndname
+const handleinputerror =(setter)=>(e) =>{
+      const value=e.target.value.trimEnd();
+      setter(value);
+      
+}
 
   //fetch data from database
   useEffect(()=>{
@@ -44,7 +50,6 @@ import './Allstyles/Addmember.css';
       headers:{"content-Type" : "application/json"},
       body : JSON.stringify({username,frndname,frndnumber})
     });
-    const data = await response.json();
     if(response.ok)
     {
       alert("registor sucessfull");
@@ -100,8 +105,8 @@ const handleupdate =async(e) =>{
             { appear &&(
               <form className={`form ${appear ? 'active' : ''}`}>
                 <label>Name :</label>
-               <input type='text' placeholder='Name' onChange={(e)=>setFrndname(e.target.value)} required /><br/>
-               <label>Phone Number :</label>
+               <input type='text' placeholder='Name' value={frndname}  onChange={(e)=>handleinputerror(setFrndname)(e) } required /><br/>
+               <label>Phone Number :</label>  
                <input type='number' placeholder='mobile no'  onChange={(e)=>setFrndnumber(e.target.value)} required/><br/>
                <div className='form-buttons'>
                <button className ="subbutton"onClick={handlepost}> Submit</button>

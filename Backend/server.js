@@ -170,12 +170,13 @@ app.delete('/Members/:username/:frndname',async(req,res)=>{
     console.log(username,frndname); 
 try{
     const userdatacollection = await connectTouserDatabase();
-    const result = userdatacollection.updateOne(
+    const result = await userdatacollection.updateOne(
         {username},
         {$pull:{friends : {frndname}}}
+        // {$pull:{friends : {frndname:frndname}}}
     );
-    
-    if(result.modifiedcount===0) 
+    console.log(result);    
+    if(result.modifiedCount===0) 
         return res.status(404).json({message:"Freind not found"});
     res.status(200).json({message:"Deleted"});
 }catch(error){
