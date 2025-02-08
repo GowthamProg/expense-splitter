@@ -10,7 +10,7 @@ const app=express();
 app.use(bodyparser.json());
 app.use(cors());
 //mongodb://localhost:27017/Expensetrack
-const uri="https://expense-splitter-ylwf.onrender.com/Expensetrack";
+const uri="https://expense-splitter-ylwf.onrender.com";
 const client = new MongoClient(uri);
 const Secret_key='NzVkYjFlNjg3OTkxMDYxYmRjNzJkNzc2OGYyNjBlYmIzNDYyYjUzYjVkMzVkZmE3';
 
