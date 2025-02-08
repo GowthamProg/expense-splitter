@@ -25,8 +25,8 @@ const handleinputerror =(setter)=>(e) =>{
   useEffect(()=>{
     const fetchfriends =async () =>{
       if(!username) return;
-      try{
-        const response=await fetch(`http://localhost:5000/Members/${username}`);
+      try{    //http://localhost:5000/Members/${username}
+        const response=await fetch(`https://expense-splitter-ylwf.onrender.com/Members/${username}`);
         const data =await response.json();
         if(response.ok)
         {
@@ -44,8 +44,8 @@ const handleinputerror =(setter)=>(e) =>{
 //add new friends 
   const handlepost = async (e) =>{
     e.preventDefault();
-    console.log({username,frndname,frndnumber});
-    const response =await fetch("http://localhost:5000/Members",{
+    console.log({username,frndname,frndnumber}); // http://localhost:5000/Members
+    const response =await fetch("https://expense-splitter-ylwf.onrender.com/Members",{
       method:"POST",
       headers:{"content-Type" : "application/json"},
       body : JSON.stringify({username,frndname,frndnumber})
@@ -61,8 +61,8 @@ const handleinputerror =(setter)=>(e) =>{
 
 //delete the friends
 const handledeletefrnd = async(frndname) =>{
-  console.log(frndname);
-  const response =await fetch(`http://localhost:5000/Members/${username}/${frndname}`,{
+  console.log(frndname);    //  http://localhost:5000/Members/${username}/${frndname}
+  const response =await fetch(`https://expense-splitter-ylwf.onrender.com/Members/${username}/${frndname}`,{
   method:"DELETE" 
    });
 const data =response.json();
@@ -80,8 +80,8 @@ const handleEdit =(friends) =>{
     setNewfrndnumber(friends.frndnumber);
 };
 const handleupdate =async(e) =>{
-    e.preventDefault();
-    const response =await fetch(`http://localhost:5000/Members/${username}/${editfrnd}`,{
+    e.preventDefault();  // http://localhost:5000/Members/${username}/${editfrnd}
+    const response =await fetch(`https://expense-splitter-ylwf.onrender.com/Members/${username}/${editfrnd}`,{
       method : "Put" ,
       headers : {"Content-Type" : "application/json"},
       body :JSON.stringify({newfrndname,newfrndnumber}),

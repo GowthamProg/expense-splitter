@@ -12,6 +12,7 @@
 .dcreate{
     display: flex;
     flex-wrap: wrap;
+    text-wrap: wrap;
     width: 200px;
     height: 100px;
     justify-content: center;
@@ -22,3 +23,57 @@
     background: white;
     background-color: rgb(202, 181, 221);
 }
+
+.dform{
+    width: 300px;
+    height: 270px;
+    background-color: rgb(92, 179, 26);
+    border-radius: 6%;
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    text-align: center;
+    padding-top: 2%;
+    left: 50%;
+    top: 50%;
+    margin-right: 100px;
+    transform: translate(-50%, -50%) scale(1);
+    overflow: hidden;
+}
+
+form label {
+    font-weight: 600;
+    color: #333;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+form input:focus {
+    border: 1px solid #007bff;
+}
+
+form input[type="date"] {
+    cursor: pointer;
+}
+
+form input::placeholder {
+    color: #888;
+}
+
+
+.dbutton{
+    padding-top: 6%;
+    display: flex;
+    justify-content: space-around;
+}
+
+

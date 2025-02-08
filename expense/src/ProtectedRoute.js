@@ -14,8 +14,8 @@ const ProtectedRoute = ({children}) => {
           return;
          }
 
-         try{
-          const response =await fetch('http://localhost:5000/validate-token',{
+         try{     //http://localhost:5000/validate-token
+          const response =await fetch(' http://localhost:5000/validate-token',{
             method : 'GET',
             headers : {Authorization:`Bearer ${token}`},
           });

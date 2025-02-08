@@ -8,8 +8,8 @@ const Registor =()=>{
 
     const handlereg =async(e)=>{
         e.preventDefault();
-        console.log("Registor with : ",{username,password,mobileno});
-        const response = await fetch('http://localhost:5000/Registor',{
+        console.log("Registor with : ",{username,password,mobileno}); // http://localhost:5000/Registor
+        const response = await fetch('https://expense-splitter-ylwf.onrender.com/Registor',{
             method :"POST",
             headers: {"Content-Type": "application/json"},
             body :JSON.stringify({username,password,mobileno})

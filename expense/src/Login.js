@@ -8,8 +8,8 @@ const Login = () =>{
     const navigate = useNavigate();
 
     const handlelog = async ()=>{
-        console.log("login with : ",{username,password});
-        const response= await fetch("http://localhost:5000/Login",{
+        console.log("login with : ",{username,password}); //http://localhost:5000/Login
+        const response= await fetch("https://expense-splitter-ylwf.onrender.com/Login",{
             method:"POST",
             headers:{"Content-Type" : "application/json"},
             body : JSON.stringify({username,password})

@@ -34,6 +34,14 @@ async function connectTouserDatabase(){
     return collectionuser;
 }
 
+let dashcollection;
+async function connectTODashboard(){
+    if(!dashcollection){
+        await client.connect();
+        dashcollection=client.db("Expensetrack").collection('user_dashboard');
+    }
+    return dashcollection;
+}
     
 //handle to login
 app.post('/Login',async(req,res)=>{
@@ -42,7 +50,7 @@ app.post('/Login',async(req,res)=>{
         const usercollection =await connectToDatabase();
         const useravailable = await usercollection.findOne({username,password});
         if(useravailable){
-            const token=jwt.sign({username},Secret_key,{expiresIn: '1h'});
+            const token=jwt.sign({username},Secret_key,{expiresIn: '2h'});
             return res.status(200).json({
                 message:"Login successfull",
                 username:useravailable.username,
@@ -63,18 +71,23 @@ app.post('/Registor',async(req,res)=>{
     try{
         const usersCollection =await connectToDatabase();
         const userdataCollection =await connectTouserDatabase();
+        const userdashboard= await connectTODashboard();
 
         const userexists = await usersCollection.findOne({username});
         if(userexists){
             return res.status(400).json({message:"Username already taken"});
         }
         const newuser = await usersCollection.insertOne({username,password,mobileno});
-
         await userdataCollection.insertOne({
             user_id:newuser.insertedId,
             username:username,
             friends: []
         });
+        await userdashboard.insertOne({
+            user_id:newuser.insertedId,
+            username:username,
+            trips:[]
+        })
         res.status(201).json({message:"Reg sucessfull"});
     }catch(error){
         res.status(500).json({message:"Error",error});
