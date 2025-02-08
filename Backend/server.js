@@ -9,8 +9,8 @@ const jwt =require('jsonwebtoken');
 const app=express();
 app.use(bodyparser.json());
 app.use(cors());
-
-const uri="mongodb://localhost:27017/Expensetrack";
+//mongodb://localhost:27017/Expensetrack
+const uri="https://expense-splitter-ylwf.onrender.com/Expensetrack";
 const client = new MongoClient(uri);
 const Secret_key='NzVkYjFlNjg3OTkxMDYxYmRjNzJkNzc2OGYyNjBlYmIzNDYyYjUzYjVkMzVkZmE3';
 
