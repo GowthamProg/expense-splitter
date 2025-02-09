@@ -4,7 +4,7 @@ import './Allstyles/Addmember.css';
  function Members (){
   const [appear,SetAppear] =useState(false);
   const [editappear,SetEditappear] =useState(false);
-  const [hover,setHover]=useState(false);
+  const [hover,setHover]=useState(null);
   const [editfrnd,setEditfrnd]=useState('');
 
   const [frndname,setFrndname] =useState('');
@@ -114,18 +114,21 @@ const handleupdate =async(e) =>{
                </div>
              </form>
             )}
-
             <div className='friends-container'>
                 {friends.map((friend,index) => (
-                  <div  key={index} onClick={()=>setHover(!hover)} className='createboxadd'>      {/* //onClick={()=>handlehover(friend.frndname) */}
-                    {friend.frndname} <br/> {friend.frndnumber}<br/>
-                        {hover &&  (<div className='hover'>
+                  <div >
+                    <div  key={index} onClick={()=>setHover(hover===index?null:index)} className='createboxadd'>      {/* //onClick={()=>handlehover(friend.frndname) */}
+                     {friend.frndname} <br/> {friend.frndnumber}<br/>
+                        {hover===index &&  (
+                        <div className='hover'>
                             <button onClick={()=>handleEdit(friend)} className='edit-button'>Edit </button>
                             <button onClick={()=>handledeletefrnd(friend.frndname)} className='edit-button'>delete </button>
-                        </div>)}
+                        </div>
+                      )}
+                    </div>    
                   </div>
                 ))}
-            </div>
+          </div>
         {editappear && (
           <form className={`form ${editappear ? 'active' : ''}`}>
           <label> New Name :</label>

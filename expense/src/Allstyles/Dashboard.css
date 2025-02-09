@@ -20,15 +20,16 @@
     text-align: center;
     align-items: center;
     margin-top: 2%;
-    border-radius: 5%;
+    border-radius: 15px;
     border-style : none;
     background-color: rgb(202, 181, 221);
 }
 
 .dprecreate{
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    gap: 2%;;
+    gap: 2%;
 }
 
 .dform{
@@ -84,3 +85,10 @@ form input::placeholder {
 }
 
 
+.cgadd{
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    display: flex;
+    background:none;
+}

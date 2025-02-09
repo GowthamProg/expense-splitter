@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import './Allstyles/Dashboard.css';
 import Slidebar from "./Sidebar";
+import { CgAdd } from "react-icons/cg";
 
 const Dashboard =()=>{
     const [event,setevent]=useState('');
@@ -78,9 +79,11 @@ const Dashboard =()=>{
                   )}
 
                   <div className="dprecreate">
-                    {trips.map((trip,index)=>(
-                        <div className="dcreate">
+                        {trips.map((trip,index)=>(
+                            <div className="dcreate">
                             {trip.event}<br/>{trip.fdate} : {trip.tdate}
+                             <button className="Cgadd"><CgAdd size={20}/></button>
+                            
                         </div>
                     ))}
                   </div>

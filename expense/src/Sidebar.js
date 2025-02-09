@@ -1,7 +1,6 @@
 import React,{useState} from "react";
 import "./Allstyles/Slidebar.css";
 import {useNavigate} from "react-router-dom"
-import Members from "./Members";
 import { FiAlignJustify } from "react-icons/fi";
 export default function Sidebar() {
   const navigate = useNavigate();
