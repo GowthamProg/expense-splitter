@@ -249,9 +249,40 @@ try{
 });
 
 
+// handle to create a events
+app.post('/Dashboard',async (req,res)=>{
+    const {username,event,fdate,tdate}=req.body;
+    try{
+        const dashboard = await connectTODashboard();
+        const user = await dashboard.findOne({username});
+        if(!user)
+        {return res.status(404).json({message:"User not found"});}
+
+        const update =await dashboard.updateOne(
+            {username:username},
+            {$push : {trips : {event,fdate,tdate}}}
+        )
+        res.status(201).json({message:"sucessfull"});
+    }catch(error)
+    {
+        res.status(500).json({message:"Error",error});
+    }
+});
 
 
-
+//handle to show events
+app.get('/Dashboard/:username',async(req,res)=>{
+    const {username}= req.params;
+    try{
+        const userdashboard = await connectTODashboard();
+        const user = await userdashboard.findOne({username});
+        if(!user) return res.status(404).json({message:"Not found"});
+        if(!user.trips) return res.status(200).json({trips:[]});
+        return res.status(200).json({trips:user.trips})
+    }catch(error){
+        res.status(500).json({message:"Error fetching",error});
+    }
+})
 
 
 

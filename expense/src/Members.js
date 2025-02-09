@@ -105,7 +105,7 @@ const handleupdate =async(e) =>{
             { appear &&(
               <form className={`form ${appear ? 'active' : ''}`}>
                 <label>Name :</label>
-               <input type='text' placeholder='Name' value={frndname}  onChange={(e)=>handleinputerror(setFrndname)(e) } required /><br/>
+               <input type='text' placeholder='Name'  onChange={(e)=>handleinputerror(setFrndname)(e) } required /><br/>
                <label>Phone Number :</label>  
                <input type='number' placeholder='mobile no'  onChange={(e)=>setFrndnumber(e.target.value)} required/><br/>
                <div className='form-buttons'>
