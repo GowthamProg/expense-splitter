@@ -5,7 +5,7 @@ import './Allstyles/Addmember.css';
   const [appear,SetAppear] =useState(false);
   const [editappear,SetEditappear] =useState(false);
   const [hover,setHover]=useState(false);
-  const [editfrnd,setEditfrnd]=useState(null);
+  const [editfrnd,setEditfrnd]=useState('');
 
   const [frndname,setFrndname] =useState('');
   const [frndnumber, setFrndnumber]=useState('');
@@ -81,15 +81,14 @@ const handleEdit =(friends) =>{
 };
 const handleupdate =async(e) =>{
     e.preventDefault();  //    https://expense-splitter-ylwf.onrender.com/Members/${username}/${editfrnd}
-    const response =await fetch(`http://localhost:5000/Members/${username}/${editfrnd}`,{
+    const response =await fetch(`http://localhost:5000/Members/${username}/${editfrnd.frndname}`,{
       method : "Put" ,
       headers : {"Content-Type" : "application/json"},
-      body :JSON.stringify({newfrndname,newfrndnumber}),
+      body :JSON.stringify({updateFrndname:newfrndname,updateFrndNumber:newfrndnumber}),
     });
     if(response.ok){
       alert ("Freind updated sucessfully");
-      setFriends(friends.map
-        (friends => friends.frndname === editfrnd.frndname ? {frndname :newfrndname ,frndnumber: newfrndnumber} : friends ));
+      setFriends(friends.map (friends => friends.frndname === editfrnd.frndname ? {frndname :newfrndname ,frndnumber: newfrndnumber} : friends ));
       setEditfrnd(null);
       }else alert("Failed to update");
       SetEditappear(false)

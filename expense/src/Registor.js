@@ -24,7 +24,6 @@ const Registor =()=>{
     return (
         <div className="home-login">
         <div className="Registor ">
-            <form>
         <h2>REGISTOR</h2>
         <label>Username : </label>
         <input type='text' placeholder='Username' className="inbox" value={username} onChange={(e)=>setusername(e.target.value)} required/>
@@ -39,7 +38,6 @@ const Registor =()=>{
         <br/>
         <p>------Back to login -------</p>
         <button onClick={()=>navigate('/')} className="login"> Login </button>
-        </form>
     </div>
     </div>
     )

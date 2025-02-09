@@ -216,10 +216,10 @@ app.put('/Members/:username/:frndname' ,async(req,res) =>{
     try{
         const userfrndcollection= await connectTouserDatabase();
         const result = await userfrndcollection.updateOne(
-            {username,frndname},
-            {$set: {frndname :updateFrndname,frndnumber:updateFrndNumber}}
+            {username,"friends.frndname":frndname},
+            {$set: {"friends.$.frndname":updateFrndname,"friends.$.frndnumber":updateFrndNumber}}
         );
-        if(result.modifiedcount === 0)
+        if(result.modifiedCount === 0)
             return res.status(404).json({message:"Friend not found"});
         res.status(200).json({message:"updated sucessfully"});
     }catch(error){
@@ -236,8 +236,8 @@ try{
     const userdatacollection = await connectTouserDatabase();
     const result = await userdatacollection.updateOne(
         {username},
-        {$pull:{friends : {frndname}}}
-        // {$pull:{friends : {frndname:frndname}}}
+        //{$pull:{friends : {frndname}}}
+        {$pull:{friends : {frndname:frndname}}}
     );
     console.log(result);    
     if(result.modifiedCount===0) 

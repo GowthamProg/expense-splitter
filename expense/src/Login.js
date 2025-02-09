@@ -109,10 +109,10 @@ return (
     <div className="Loginpage">
         <h2>LOGIN</h2>
         <label>Username : </label>
-        <input type='text' placeholder='Username' required className='inbox' onChange={(e)=>setusername(e.target.value)} />
+        <input type='text' placeholder='Username'  className='inbox' onChange={(e)=>setusername(e.target.value)} />
         <br/>
         <label>password : </label>
-        <input type='password' placeholder='password' required className='inbox' value={password} onChange={(e)=> setpassword(e.target.value)}  />
+        <input type='password' placeholder='password'  className='inbox' value={password} onChange={(e)=> setpassword(e.target.value)}  />
         <br/>
         <button onClick={handlelog} className='login'> login </button>
         <p>--------------------OR--------------------</p>
