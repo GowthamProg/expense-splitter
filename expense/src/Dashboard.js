@@ -59,7 +59,7 @@ const Dashboard =()=>{
                 <button className="Dashlogout" onClick={handlelogout}> Logout</button>
                 <h2>Dashboard</h2>
                 <span>Welcome , {username}!</span><br/>
-                 <button className="dcreate" onClick={()=>sethover(!hover)}> Cick here to add new event </button>
+                 <button className="dcreate" onClick={()=>sethover(!hover)}> add new event </button>
                  {hover && (
                     <div className="dform">
                         <form>
@@ -77,10 +77,10 @@ const Dashboard =()=>{
                     </div>
                   )}
 
-                  <div>
+                  <div className="dprecreate">
                     {trips.map((trip,index)=>(
                         <div className="dcreate">
-                            {trip.event}-{trip.fdate} - {trip.tdate}
+                            {trip.event}<br/>{trip.fdate} : {trip.tdate}
                         </div>
                     ))}
                   </div>

@@ -6,6 +6,7 @@
     border-radius: 8%;
     border-style: none;
     text-align: center;
+    text-overflow: ellipsis;
     margin: 1%;
 }
 
