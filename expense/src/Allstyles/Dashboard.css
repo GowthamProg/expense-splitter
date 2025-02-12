@@ -12,9 +12,9 @@
 .dcreate{
     display: flex;
     flex-wrap: wrap;
-    text-wrap: wrap;
-    width: 90%;
-    max-width: 300px;
+    text-overflow: ellipsis;
+    /* width: 90%; */
+    width: 300px;
     height: 100px;
     justify-content: center;
     text-align: center;
@@ -26,7 +26,7 @@
 }
 
 .dprecreate{
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-wrap: wrap;
     gap: 2%;
@@ -48,6 +48,7 @@
     margin-right: 100px;
     transform: translate(-50%, -50%) scale(1);
     overflow: hidden;
+    z-index: 2;
 }
 
 form label {
@@ -86,9 +87,12 @@ form input::placeholder {
 
 
 .cgadd{
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    display: flex;
-    background:none;
+    position: relative;
+    bottom: 25%;
+    left:14%;
+    z-index: 1;
+    color: aqua;
+    background: none;
+    border: none;
+    font-size:25px;
 }

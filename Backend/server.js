@@ -260,8 +260,9 @@ app.post('/Dashboard',async (req,res)=>{
 
         const update =await dashboard.updateOne(
             {username:username},
-            {$push : {trips : {event,fdate,tdate}}}
+            {$push : {trips : {event,fdate,tdate,friendlist:[]}}}
         )
+        
         res.status(201).json({message:"sucessfull"});
     }catch(error)
     {

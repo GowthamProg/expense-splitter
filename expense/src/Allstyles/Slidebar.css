@@ -19,7 +19,7 @@
     position: absolute;
     top:22px;
     left: 10px;
-    z-index: 10000;
+    z-index: 1;
     color: aqua;
     background: none;
     border: none;

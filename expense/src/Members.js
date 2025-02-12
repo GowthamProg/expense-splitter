@@ -116,8 +116,8 @@ const handleupdate =async(e) =>{
             )}
             <div className='friends-container'>
                 {friends.map((friend,index) => (
-                  <div >
-                    <div  key={index} onClick={()=>setHover(hover===index?null:index)} className='createboxadd'>      {/* //onClick={()=>handlehover(friend.frndname) */}
+                  <div  key={index} >
+                    <div onClick={()=>setHover(hover===index?null:index)} className='createboxadd'>      {/* //onClick={()=>handlehover(friend.frndname) */}
                      {friend.frndname} <br/> {friend.frndnumber}<br/>
                         {hover===index &&  (
                         <div className='hover'>
@@ -126,7 +126,7 @@ const handleupdate =async(e) =>{
                         </div>
                       )}
                     </div>    
-                  </div>
+                  </div>  
                 ))}
           </div>
         {editappear && (

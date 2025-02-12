@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import './Allstyles/Dashboard.css';
 import Slidebar from "./Sidebar";
 import { CgAdd } from "react-icons/cg";
@@ -9,6 +9,7 @@ const Dashboard =()=>{
     const [fdate,setfdate]=useState("");
     const [tdate,settdate]=useState('');
     const [trips,settrips]=useState([]);
+    const [memberlist,setmemberlist]=useState(false);
     const [hover,sethover]=useState(false);
     const navigate = useNavigate();
     const username=localStorage.getItem('username');
@@ -79,14 +80,32 @@ const Dashboard =()=>{
                   )}
 
                   <div className="dprecreate">
-                        {trips.map((trip,index)=>(
+                    {trips.map((trip,index)=>(
+                        <div key={index}>
                             <div className="dcreate">
-                            {trip.event}<br/>{trip.fdate} : {trip.tdate}
-                             <button className="Cgadd"><CgAdd size={20}/></button>
-                            
+                                {trip.event}<br/>{trip.fdate} : {trip.tdate}
+                                <button className="cgadd" onClick={()=>setmemberlist(true)}><CgAdd /> </button>     
+                            </div>
                         </div>
                     ))}
                   </div>
+
+                  {/* <div className="dprecreate">
+                        {trips.map((trip,index)=>(
+                            <div key={index} className="dcreate">
+                                <div >
+                                {trip.event}<br/>{trip.fdate} : {trip.tdate}
+                                <button className="cgadd" onClick={()=>setmemberlist(true)}><CgAdd /> </button>
+                            </div>
+                        </div>
+                    ))}
+                  </div> */}
+
+                  {/* {memberlist && (
+                    <div className="memlist">
+                        hii
+                    </div>
+                  )} */}
 
 
             </div>

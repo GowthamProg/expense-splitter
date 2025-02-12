@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home';
-import Login from './Login';
 import Registor from './Registor';
 import './Allstyles/App.css';
 import ProtectedRoute from './ProtectedRoute';
