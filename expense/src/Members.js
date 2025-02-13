@@ -123,7 +123,7 @@ const handleupdate =async(e) =>{
                         <div className='hover'>
                             <button onClick={()=>handleEdit(friend)} className='edit-button'>Edit </button>
                             <button onClick={()=>handledeletefrnd(friend.frndname)} className='edit-button'>delete </button>
-                        </div>
+                        </div>  
                       )}
                     </div>    
                   </div>  

@@ -9,8 +9,10 @@ const Dashboard =()=>{
     const [fdate,setfdate]=useState("");
     const [tdate,settdate]=useState('');
     const [trips,settrips]=useState([]);
-    const [memberlist,setmemberlist]=useState(false);
+    const [friends,setfriends]=useState([]);
+    const [memberlist,setmemberlist]=useState();
     const [hover,sethover]=useState(false);
+    const [hover1,sethover1] =useState(false);
     const navigate = useNavigate();
     const username=localStorage.getItem('username');
     // const location=useLocation();
@@ -20,6 +22,27 @@ const Dashboard =()=>{
         navigate('/');
         alert('Loged out');
     }
+
+      
+    //fetch data from database
+     useEffect(()=>{
+       const fetchfriends =async () =>{
+         if(!username) return;
+         try{    //https://expense-splitter-ylwf.onrender.com/Members/${username}
+           const response=await fetch(`http://localhost:5000/Members/${username}`);
+           const data =await response.json();
+           if(response.ok)
+           {
+             console.log(" friends contact updated successfully");
+             setfriends(data.friends);
+           }
+           else alert("failed to fetch...");
+         }catch(error){
+             console.error("Error fetching",error);
+         }
+       };
+       fetchfriends();
+     },[]);
 
     //fetch data from database
     useEffect(
@@ -71,7 +94,7 @@ const Dashboard =()=>{
                             <input type="date" onChange={(e)=>setfdate(e.target.value)}></input><br/>
                             <label>To </label><br/>
                             <input type="date" onChange={(e)=>settdate(e.target.value)}></input><br/>
-                            <div className="dbutton">
+                            <div className="button0">
                                 <button className="subbutton" onClick={handlesubmit} > Submit</button>
                                 <button className="clbutton" onClick={()=>sethover(false)}> Close</button>
                             </div>
@@ -84,28 +107,28 @@ const Dashboard =()=>{
                         <div key={index}>
                             <div className="dcreate">
                                 {trip.event}<br/>{trip.fdate} : {trip.tdate}
-                                <button className="cgadd" onClick={()=>setmemberlist(true)}><CgAdd /> </button>     
+                                <button className="cgadd" onClick={()=>{setmemberlist(index);sethover1(true)}}><CgAdd /> </button>     
                             </div>
                         </div>
                     ))}
                   </div>
-
-                  {/* <div className="dprecreate">
-                        {trips.map((trip,index)=>(
-                            <div key={index} className="dcreate">
-                                <div >
-                                {trip.event}<br/>{trip.fdate} : {trip.tdate}
-                                <button className="cgadd" onClick={()=>setmemberlist(true)}><CgAdd /> </button>
+                    
+                  {hover1 && (
+                    <div className="memlist">
+                        <div className="memlist0" >
+                            {friends.map((friend,index)=>(
+                            <div className="memlist1">
+                                {memberlist},{friend.frndname},hi
+                                <input type="checkbox"/>
+                            </div>
+                        ))}
+                            <div className="button1">
+                             <button className="subbutton">Submit</button>
+                             <button className="clbutton" onClick={()=>sethover1(false)}> Cancel</button>
                             </div>
                         </div>
-                    ))}
-                  </div> */}
-
-                  {/* {memberlist && (
-                    <div className="memlist">
-                        hii
                     </div>
-                  )} */}
+                  )}
 
 
             </div>
