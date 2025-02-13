@@ -283,8 +283,30 @@ app.get('/Dashboard/:username',async(req,res)=>{
     }catch(error){
         res.status(500).json({message:"Error fetching",error});
     }
-})
+});
 
+
+// handle to show frnds details in friends page
+app.get('/Dashboard/:username/:indexnum',async(req,res)=>{
+    const {username,indexnum} =req.params;
+    const index = parseInt(indexnum,10);
+
+    try{
+        const collection =await connectTODashboard();
+
+        const user =await collection.findOne({username});
+        if(!user ) { 
+            return res.status(404).json({message:"User not found"}); }
+        
+        const userdata = await collection.findOne({user_id:user._id});
+        // if(!userdata || !userdata.friends){
+        //     return res.status(200).json({friends : []});}
+        const friendlist= user.trips[index].friendlist || [];
+        res.status(200).json({friendlist});
+    } catch(error){
+        res.status(500).json({message: "Error fetching data ",error});
+    }
+});
 
 
 

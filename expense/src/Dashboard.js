@@ -10,7 +10,9 @@ const Dashboard =()=>{
     const [tdate,settdate]=useState('');
     const [trips,settrips]=useState([]);
     const [friends,setfriends]=useState([]);
-    const [memberlist,setmemberlist]=useState();
+    const [selfriends,setselfriends] =useState([]);
+    const [indexnum,setindexnum]=useState();
+    const [check,setcheck] = useState([]);
     const [hover,sethover]=useState(false);
     const [hover1,sethover1] =useState(false);
     const navigate = useNavigate();
@@ -24,9 +26,8 @@ const Dashboard =()=>{
     }
 
       
-    //fetch data from database
-     useEffect(()=>{
-       const fetchfriends =async () =>{
+    //fetch all friends from database
+       const fetchallfriends =async () =>{
          if(!username) return;
          try{    //https://expense-splitter-ylwf.onrender.com/Members/${username}
            const response=await fetch(`http://localhost:5000/Members/${username}`);
@@ -41,10 +42,23 @@ const Dashboard =()=>{
              console.error("Error fetching",error);
          }
        };
-       fetchfriends();
-     },[]);
 
-    //fetch data from database
+       //fetch selected frnds fromt he data base
+       const fetchselectedfrnds = async ()=>{
+            try{
+                const response =await fetch(`http://localhost:5000/Dashboard/${username}/${indexnum}`);
+                const data= await response.json();
+                if(response.ok){
+                    setselfriends(data.friendlist);
+                }
+                else alert("error seletecd frnds");
+            }catch(error){
+                alert("eeror sel frnds");
+            }
+       }
+
+
+    //fetch data from database to show trips
     useEffect(
     ()=>{
         const fetchevents = async() =>{
@@ -77,6 +91,14 @@ const Dashboard =()=>{
         else alert("Register failed");
     };
 
+    const handlecheck = (index)=>{
+        setcheck((prev)=>prev.includes(index)?prev.filter((i)=>i!==index):[...prev,index]);
+    };
+
+    const handlesub = ()=>{
+        console.log(check);
+    }
+
     return (
         <div>
             <Slidebar />
@@ -107,7 +129,7 @@ const Dashboard =()=>{
                         <div key={index}>
                             <div className="dcreate">
                                 {trip.event}<br/>{trip.fdate} : {trip.tdate}
-                                <button className="cgadd" onClick={()=>{setmemberlist(index);sethover1(true)}}><CgAdd /> </button>     
+                                <button className="cgadd" onClick={()=>{setindexnum(index);sethover1(true)}}><CgAdd /> </button>     
                             </div>
                         </div>
                     ))}
@@ -116,14 +138,23 @@ const Dashboard =()=>{
                   {hover1 && (
                     <div className="memlist">
                         <div className="memlist0" >
+                            <div className="topic">
+                                <p className="topic0" onClick={()=>fetchallfriends()}>All friends</p>
+                                <p className="topic1" onClick={()=>fetchselectedfrnds()}>selected friends</p>
+                            </div>
+                            {selfriends.map((friend,index)=>(
+                                <div className="memlist1">
+                                    {friend.frndname},hi
+                                </div>
+                            ))}
                             {friends.map((friend,index)=>(
                             <div className="memlist1">
-                                {memberlist},{friend.frndname},hi
-                                <input type="checkbox"/>
+                                {indexnum},{friend.frndname},hi
+                                <input type="checkbox" onChange={()=>handlecheck(index)}/>
                             </div>
                         ))}
                             <div className="button1">
-                             <button className="subbutton">Submit</button>
+                             <button className="subbutton" onClick={handlesub}>Submit</button>
                              <button className="clbutton" onClick={()=>sethover1(false)}> Cancel</button>
                             </div>
                         </div>

@@ -135,3 +135,10 @@ form input::placeholder {
     display: flex;
     justify-content: space-around;
 }
+
+.topic{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(45, 194, 194);
+    border-radius: 10px;
+}
