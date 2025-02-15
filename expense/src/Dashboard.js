@@ -16,9 +16,9 @@ const Dashboard =()=>{
     const [check,setcheck] = useState([]);
     const [hover,sethover]=useState(false);
     const [hover1,sethover1] =useState(false);
-    const navigate = useNavigate();
     const [show0,setshow0]=useState(true);
     const username=localStorage.getItem('username');
+    const navigate = useNavigate();
 
     const handlelogout =()=>{
         localStorage.removeItem('token');
@@ -94,6 +94,7 @@ const Dashboard =()=>{
         else alert("Register failed");
     };
 
+    //handle to add selected frnds
     const handlecheck = (index)=>{
         setcheck((prev)=>prev.includes(index)?prev.filter((i)=>i!==index):[...prev,index]);
     };
@@ -145,7 +146,7 @@ const Dashboard =()=>{
                   <div className="dprecreate">
                     {trips.map((trip,index)=>(
                         <div key={index}>
-                            <div className="dcreate">
+                            <div className="dcreate" onClick={()=>{navigate('/Event',{state : {trip,index}})}}>
                                 {trip.event}<br/>{trip.fdate} : {trip.tdate}
                                 <button className="cgadd" onClick={()=>{setindexnum(index);sethover1(true);fetchselectedfrnds(index);fetchallfriends();}}><CgAdd /> </button>     
                             </div>
