@@ -1,5 +1,6 @@
 import React,{ useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
+import {url} from './backendurl';
 import './Allstyles/Addmember.css';
  function Members (){
   const [appear,SetAppear] =useState(false);
@@ -26,7 +27,7 @@ const handleinputerror =(setter)=>(e) =>{
     const fetchfriends =async () =>{
       if(!username) return;
       try{    //https://expense-splitter-ylwf.onrender.com/Members/${username}
-        const response=await fetch(`http://localhost:5000/Members/${username}`);
+        const response=await fetch(`${url}/Members/${username}`);
         const data =await response.json();
         if(response.ok)
         {
@@ -45,7 +46,7 @@ const handleinputerror =(setter)=>(e) =>{
   const handlepost = async (e) =>{
     e.preventDefault();
     console.log({username,frndname,frndnumber}); // https://expense-splitter-ylwf.onrender.com/Members
-    const response =await fetch("http://localhost:5000/Members",{
+    const response =await fetch(`${url}/Members`,{
       method:"POST",
       headers:{"content-Type" : "application/json"},
       body : JSON.stringify({username,frndname,frndnumber})
@@ -62,7 +63,7 @@ const handleinputerror =(setter)=>(e) =>{
 //delete the friends
 const handledeletefrnd = async(frndname) =>{
   console.log(frndname);    //https://expense-splitter-ylwf.onrender.com/Members/${username}/${frndname}
-  const response =await fetch(`http://localhost:5000/Members/${username}/${frndname}`,{
+  const response =await fetch(`${url}/Members/${username}/${frndname}`,{
   method:"DELETE" 
    });
 const data =response.json();
@@ -81,7 +82,7 @@ const handleEdit =(friends) =>{
 };
 const handleupdate =async(e) =>{
     e.preventDefault();  //    https://expense-splitter-ylwf.onrender.com/Members/${username}/${editfrnd}
-    const response =await fetch(`http://localhost:5000/Members/${username}/${editfrnd.frndname}`,{
+    const response =await fetch(`${url}/Members/${username}/${editfrnd.frndname}`,{
       method : "Put" ,
       headers : {"Content-Type" : "application/json"},
       body :JSON.stringify({updateFrndname:newfrndname,updateFrndNumber:newfrndnumber}),

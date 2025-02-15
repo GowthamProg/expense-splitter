@@ -286,7 +286,7 @@ app.get('/Dashboard/:username',async(req,res)=>{
 });
 
 
-// handle to show frnds details in friends page
+// handle to show selected frnds details in dashboard page
 app.get('/Dashboard/:username/:indexnum',async(req,res)=>{
     const {username,indexnum} =req.params;
     const index = parseInt(indexnum,10);
@@ -298,7 +298,7 @@ app.get('/Dashboard/:username/:indexnum',async(req,res)=>{
         if(!user ) { 
             return res.status(404).json({message:"User not found"}); }
         
-        const userdata = await collection.findOne({user_id:user._id});
+        //const userdata = await collection.findOne({user_id:user._id});
         // if(!userdata || !userdata.friends){
         //     return res.status(200).json({friends : []});}
         const friendlist= user.trips[index].friendlist || [];
@@ -308,8 +308,24 @@ app.get('/Dashboard/:username/:indexnum',async(req,res)=>{
     }
 });
 
+// handle to post the friends in event array
+app.post('/submitfrnds/:username/:index',async (req,res)=>{
+    const {selectednames} = req.body;
+    const {username,index} = req.params;
+    console.log(selectednames);
+    try{
+        const dashboard = await connectTODashboard();
+        const user =await dashboard.findOne({username});
+        if(!user) return res.status(404).json({message:"USer not found"});
+        const update = await dashboard.updateOne(
+            {username},
+            {$addToSet : {[`trips.${index}.friendlist`] : {$each: selectednames}}}
+        );
+    }catch(error){
+        res.status(500).json({message:"Error saving friends",error});
+    }
 
-
+})
 
 
 

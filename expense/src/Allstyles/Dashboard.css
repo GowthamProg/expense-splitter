@@ -111,14 +111,9 @@ form input::placeholder {
     width: 75%;
     padding: 5%;
     transform: translate(-50%, -50%) scale(1);
-}
-
-.memlist0{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    height: 100vh;
-    
+    gap: 15px;
 }
 
 .memlist1{

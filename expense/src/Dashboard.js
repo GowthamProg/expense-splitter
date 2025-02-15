@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate} from "react-router-dom";
 import './Allstyles/Dashboard.css';
 import Slidebar from "./Sidebar";
+import { url } from './backendurl';
 import { CgAdd } from "react-icons/cg";
 
 const Dashboard =()=>{
@@ -16,9 +17,9 @@ const Dashboard =()=>{
     const [hover,sethover]=useState(false);
     const [hover1,sethover1] =useState(false);
     const navigate = useNavigate();
+    const [show0,setshow0]=useState(true);
     const username=localStorage.getItem('username');
-    // const location=useLocation();
-    // const username=location.state?.username;
+
     const handlelogout =()=>{
         localStorage.removeItem('token');
         navigate('/');
@@ -30,7 +31,7 @@ const Dashboard =()=>{
        const fetchallfriends =async () =>{
          if(!username) return;
          try{    //https://expense-splitter-ylwf.onrender.com/Members/${username}
-           const response=await fetch(`http://localhost:5000/Members/${username}`);
+           const response=await fetch(`${url}/Members/${username}`);
            const data =await response.json();
            if(response.ok)
            {
@@ -44,12 +45,13 @@ const Dashboard =()=>{
        };
 
        //fetch selected frnds fromt he data base
-       const fetchselectedfrnds = async ()=>{
+       const fetchselectedfrnds = async (index)=>{
             try{
-                const response =await fetch(`http://localhost:5000/Dashboard/${username}/${indexnum}`);
+                const response =await fetch(`${url}/Dashboard/${username}/${index}`);
                 const data= await response.json();
                 if(response.ok){
                     setselfriends(data.friendlist);
+                    console.log("hii",{selfriends});
                 }
                 else alert("error seletecd frnds");
             }catch(error){
@@ -64,7 +66,7 @@ const Dashboard =()=>{
         const fetchevents = async() =>{
             if(!username) return;
             try{
-                const response =await fetch(`http://localhost:5000/Dashboard/${username}`);
+                const response =await fetch(`${url}/Dashboard/${username}`);
                 const data =await response.json();
                 console.log({data});
                 if(response.ok) settrips(data.trips)
@@ -77,10 +79,11 @@ const Dashboard =()=>{
         fetchevents();
     },[username]);
 
+    //handle to create a new event
     const handlesubmit = async(e)=>{
         e.preventDefault();
         console.log({username,event,fdate,tdate});
-        const response= await fetch ("http://localhost:5000/Dashboard",{
+        const response= await fetch (`${url}/Dashboard`,{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body :JSON.stringify({username,event,fdate,tdate})
@@ -95,8 +98,23 @@ const Dashboard =()=>{
         setcheck((prev)=>prev.includes(index)?prev.filter((i)=>i!==index):[...prev,index]);
     };
 
-    const handlesub = ()=>{
+    const handlesub = async()=>{
+        check.sort((a,b)=>a-b);
         console.log(check);
+        const selectednames = check.map((index)=> friends[index].frndname);
+        console.log(selectednames);
+        try{
+            const response =await fetch(`${url}/submitfrnds/${username}/${indexnum}`,{
+                method:"POST",
+                headers:{"Content-type":"Application/json"},
+                body: JSON.stringify({selectednames})
+            });
+            if(response.ok)
+                console.log('Submitted');
+        }catch(error)
+        {
+            console.log("Error", error);
+        }
     }
 
     return (
@@ -129,7 +147,7 @@ const Dashboard =()=>{
                         <div key={index}>
                             <div className="dcreate">
                                 {trip.event}<br/>{trip.fdate} : {trip.tdate}
-                                <button className="cgadd" onClick={()=>{setindexnum(index);sethover1(true)}}><CgAdd /> </button>     
+                                <button className="cgadd" onClick={()=>{setindexnum(index);sethover1(true);fetchselectedfrnds(index);fetchallfriends();}}><CgAdd /> </button>     
                             </div>
                         </div>
                     ))}
@@ -137,28 +155,26 @@ const Dashboard =()=>{
                     
                   {hover1 && (
                     <div className="memlist">
-                        <div className="memlist0" >
                             <div className="topic">
-                                <p className="topic0" onClick={()=>fetchallfriends()}>All friends</p>
-                                <p className="topic1" onClick={()=>fetchselectedfrnds()}>selected friends</p>
+                                <p className="topic0" onClick={()=>setshow0(true)}>All friends</p>
+                                <p className="topic1" onClick={()=>setshow0(false)}>selected friends</p>
                             </div>
-                            {selfriends.map((friend,index)=>(
-                                <div className="memlist1">
-                                    {friend.frndname},hi
-                                </div>
+                            {!show0 && selfriends.map((friend,index)=>( // to show selected friends
+                            <div className="memlist1" key={index}>
+                                {friend}...hello
+                            </div>
                             ))}
-                            {friends.map((friend,index)=>(
+                            {show0 && friends.map((friend,index)=>( // to show all friends
                             <div className="memlist1">
                                 {indexnum},{friend.frndname},hi
                                 <input type="checkbox" onChange={()=>handlecheck(index)}/>
                             </div>
                         ))}
                             <div className="button1">
-                             <button className="subbutton" onClick={handlesub}>Submit</button>
+                             <button className="subbutton" onClick={()=>{handlesub();fetchselectedfrnds(indexnum);}}>Submit</button>
                              <button className="clbutton" onClick={()=>sethover1(false)}> Cancel</button>
                             </div>
                         </div>
-                    </div>
                   )}
 
 

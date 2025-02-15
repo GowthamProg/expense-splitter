@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {url} from './backendurl';
 import { BrowserRouter as Router,Route,Routes,Link,useNavigate } from "react-router-dom";
 import './Allstyles/Registor.css';
 const Registor =()=>{
@@ -9,7 +10,7 @@ const Registor =()=>{
     const handlereg =async(e)=>{
         e.preventDefault();
         console.log("Registor with : ",{username,password,mobileno}); //https://expense-splitter-ylwf.onrender.com/Registor 
-        const response = await fetch('http://localhost:5000/Registor',{
+        const response = await fetch(`${url}/Registor`,{
             method :"POST",
             headers: {"Content-Type": "application/json"},
             body :JSON.stringify({username,password,mobileno})

@@ -79,6 +79,7 @@
 import React,{useState} from 'react';
 import {BrowserRouter as useLocation, useNavigate} from 'react-router-dom';
 import "./Allstyles/Loginpage.css";
+import { url } from './backendurl';
 const Login = () =>{
     const [username,setusername]=useState('');
     const [password,setpassword]=useState('');
@@ -87,7 +88,7 @@ const Login = () =>{
 
     const handlelog = async ()=>{
         console.log("login with : ",{username,password}); //https://expense-splitter-ylwf.onrender.com/Login
-        const response= await fetch("http://localhost:5000/Login",{
+        const response= await fetch(`${url}/Login`,{
             method:"POST",
             headers:{"Content-Type" : "application/json"},
             body : JSON.stringify({username,password})

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate} from 'react-router-dom'
+import { url } from './backendurl';
 
 const ProtectedRoute = ({children}) => {
       const navigate =useNavigate();
@@ -15,7 +16,7 @@ const ProtectedRoute = ({children}) => {
          }
 
          try{     //http://localhost:5000/validate-token
-          const response =await fetch(' http://localhost:5000/validate-token',{
+          const response =await fetch(`${url}/validate-token`,{
             method : 'GET',
             headers : {Authorization:`Bearer ${token}`},
           });
