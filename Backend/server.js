@@ -1,55 +1,4 @@
-// const express = require('express');
-// const { MongoClient } = require('mongodb');
-// const bodyparser = require('body-parser');
-// const cors = require('cors');
-// const jwt = require('jsonwebtoken');
-
-// const app = express();
-// app.use(bodyparser.json());
-// app.use(cors());
-
-// const uri = "mongodb://localhost:27017/Expensetrack";  // Use your correct MongoDB URI
-// const Secret_key = 'NzVkYjFlNjg3OTkxMDYxYmRjNzJkNzc2OGYyNjBlYmIzNDYyYjUzYjVkMzVkZmE3';
-
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// async function connectToDatabase() {
-//     await client.connect();
-//     return client.db("Expensetrack");
-// }
-
-// app.post('/Login', async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//         const db = await connectToDatabase();
-//         const usercollection = db.collection('user');
-//         const useravailable = await usercollection.findOne({ username, password });
-        
-//         if (useravailable) {
-//             const token = jwt.sign({ username }, Secret_key, { expiresIn: '2h' });
-//             return res.status(200).json({ message: "Login successful", username: useravailable.username, token });
-//         }
-//         res.status(400).json({ message: "Invalid credentials" });
-//     } catch (error) {
-//         res.status(500).json({ message: "Login failed", error });
-//     }
-// });
-
-// // Start server
-// const PORT = 5000;
-// app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
-
-
-
-
-
-
-
-
-
-//require('dotenv').config();
+require('dotenv').config();
 
 const express= require('express');
 const { MongoClient } = require('mongodb');
@@ -61,9 +10,10 @@ const app=express();
 app.use(bodyparser.json());
 app.use(cors());
 
-const uri="mongodb://localhost:27017/Expensetrack";
+const uri=process.env.uri 
 const client = new MongoClient(uri);
-const Secret_key='NzVkYjFlNjg3OTkxMDYxYmRjNzJkNzc2OGYyNjBlYmIzNDYyYjUzYjVkMzVkZmE3';
+const Secret_key= process.env.Secret_key;
+
 
 let collection;
 async function connectToDatabase(){
@@ -335,7 +285,7 @@ app.post('/submitfrnds/:username/:index',async (req,res)=>{
 
 
 
-const PORT= 5000;//process.env.PORT ||
+const PORT= process.env.PORT || 5000;//
 app.listen(PORT,()=>{
     console.log(`Server running on port ${PORT}`);
 });

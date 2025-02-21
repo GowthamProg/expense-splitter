@@ -9,3 +9,40 @@
     align-items: center;
     justify-content: center;
 }
+
+.eform{
+    background-color: burlywood;
+    border-radius: 10px;
+    height: 100px;
+    min-width: 20%;
+    max-width: 40%;
+}
+
+.eform{
+    width: 300px;
+    height: 270px;
+    background-color: rgb(92, 179, 26);
+    border-radius: 6%;
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    left: 50%;
+    top: 50%;
+    /* margin-right: 100px; */
+    transform: translate(-50%, -50%) scale(1);
+    overflow: hidden;
+    z-index: 2;
+}
+
+.button1{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}

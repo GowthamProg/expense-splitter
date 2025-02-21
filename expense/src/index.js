@@ -21,10 +21,10 @@ import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Create root
 root.render(
-  <React.StrictMode>
+   <React.StrictMode>
     <Router>
       <App />
-    </Router>
-  </React.StrictMode>
+    </Router> 
+     </React.StrictMode> 
 );
 

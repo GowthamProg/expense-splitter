@@ -44,7 +44,7 @@ const Dashboard =()=>{
          }
        };
 
-       //fetch selected frnds fromt he data base
+       //fetch selected frnds from the data base
        const fetchselectedfrnds = async (index)=>{
             try{
                 const response =await fetch(`${url}/Dashboard/${username}/${index}`);
@@ -146,9 +146,9 @@ const Dashboard =()=>{
                   <div className="dprecreate">
                     {trips.map((trip,index)=>(
                         <div key={index}>
-                            <div className="dcreate" onClick={()=>{navigate('/Event',{state : {trip,index}})}}>
+                            <div className="dcreate" onClick={()=>{fetchselectedfrnds(index);navigate('/Event',{state : {trip,index,selfriends}})}}>
                                 {trip.event}<br/>{trip.fdate} : {trip.tdate}
-                                <button className="cgadd" onClick={()=>{setindexnum(index);sethover1(true);fetchselectedfrnds(index);fetchallfriends();}}><CgAdd /> </button>     
+                                <div><button className="cgadd" onClick={(e)=>{e.stopPropagation();setindexnum(index);sethover1(true);fetchselectedfrnds(index);fetchallfriends();}}><CgAdd /> </button></div> 
                             </div>
                         </div>
                     ))}
@@ -162,12 +162,12 @@ const Dashboard =()=>{
                             </div>
                             {!show0 && selfriends.map((friend,index)=>( // to show selected friends
                             <div className="memlist1" key={index}>
-                                {friend}...hello
+                                {friend}.
                             </div>
                             ))}
                             {show0 && friends.map((friend,index)=>( // to show all friends
                             <div className="memlist1">
-                                {indexnum},{friend.frndname},hi
+                                {indexnum} ,{friend.frndname}
                                 <input type="checkbox" onChange={()=>handlecheck(index)}/>
                             </div>
                         ))}
