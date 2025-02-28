@@ -68,6 +68,7 @@ app.post('/Login',async(req,res)=>{
 
 //handle to registor
 app.post('/Registor',async(req,res)=>{
+    console.log("hi");
     const {username,password,mobileno} = req.body;
     try{
         const usersCollection =await connectToDatabase();
@@ -91,6 +92,7 @@ app.post('/Registor',async(req,res)=>{
         })
         res.status(201).json({message:"Reg sucessfull"});
     }catch(error){
+        console.log(error);
         res.status(500).json({message:"Error",error});
     }
 });
