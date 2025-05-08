@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {url} from './backendurl';
 import { BrowserRouter as Router,Route,Routes,Link,useNavigate } from "react-router-dom";
 import './Allstyles/Registor.css';
-const Registor =()=>{
+const Register =()=>{
     const [username,setusername]=useState('');
     const [password,setpassword]=useState(null);
     const [mobileno,setmobileno]=useState(null);
@@ -25,7 +25,7 @@ const Registor =()=>{
     return (
         <div className="home-login">
         <div className="Registor ">
-        <h2>REGISTOR</h2>
+        <h2>REGISTER</h2>
         <label>Username : </label>
         <input type='text' placeholder='Username' className="inbox" value={username} onChange={(e)=>setusername(e.target.value)} required/>
         <br/>
@@ -35,7 +35,7 @@ const Registor =()=>{
         <label>Phone number : </label>
         <input type='number' placeholder='mobile no' className="inbox" value={mobileno} onChange={(e)=> setmobileno(e.target.value)} required/>
         <br/>
-        <button type="submit" onClick={handlereg} className="button"> Registor </button>
+        <button type="submit" onClick={handlereg} className="button"> Register </button>
         <br/>
         <p>------Back to login -------</p>
         <button onClick={()=>navigate('/')} className="login"> Login </button>
@@ -43,4 +43,4 @@ const Registor =()=>{
     </div>
     )
 };
-export default Registor;
+export default Register;

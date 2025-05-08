@@ -24,6 +24,12 @@ async function connectToDatabase(){
     }
     return collection;
 }
+let c;
+async function connectToDataba(){
+        await client.connect();
+        client.db("Expensetrack").collection('user');
+}
+connectToDataba();
 
 let collectionuser;
 async function connectTouserDatabase(){
@@ -43,7 +49,18 @@ async function connectTODashboard(){
     }
     return dashcollection;
 }
-    
+   
+let eventcollection;
+async function connectTOeventcollection() {
+    if(!eventcollection){
+        await client.connect();
+        eventcollection=client.db("Expensetrack").collection('EventCollection');
+    }
+    return eventcollection;
+}
+
+
+
 //handle to login
 app.post('/Login',async(req,res)=>{
     const {username,password} =req.body;
@@ -74,6 +91,7 @@ app.post('/Registor',async(req,res)=>{
         const usersCollection =await connectToDatabase();
         const userdataCollection =await connectTouserDatabase();
         const userdashboard= await connectTODashboard();
+        const userEvent = await connectTOeventcollection();
 
         const userexists = await usersCollection.findOne({username});
         if(userexists){
@@ -89,6 +107,11 @@ app.post('/Registor',async(req,res)=>{
             user_id:newuser.insertedId,
             username:username,
             trips:[]
+        })
+        await userEvent.insertOne({
+            user_id:newuser.insertedId,
+            username:username,
+            event:[]
         })
         res.status(201).json({message:"Reg sucessfull"});
     }catch(error){
@@ -114,7 +137,7 @@ app.get('/validate-token',(req,res)=>{
 
 
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //handle to add frnds number
 app.post('/Members',async(req,res)=>{
     const {username,frndname,frndnumber} = req.body;
@@ -128,7 +151,7 @@ app.post('/Members',async(req,res)=>{
 
         const update = await userdataCollection.updateOne(
             {user_id :user._id},
-            {$push : {friends :{ frndname,frndnumber}}}
+            {$push : {friends :{ frndname,frndnumber,Amount: 0}}}
         )
         // await usercollection.insertOne({frndname,frndnumber});
         res.status(201).json({message:"Reg sucessfull"});
@@ -200,7 +223,7 @@ try{
 }
 });
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // handle to create a events
 app.post('/Dashboard',async (req,res)=>{
     const {username,event,fdate,tdate}=req.body;
@@ -249,10 +272,6 @@ app.get('/Dashboard/:username/:indexnum',async(req,res)=>{
         const user =await collection.findOne({username});
         if(!user ) { 
             return res.status(404).json({message:"User not found"}); }
-        
-        //const userdata = await collection.findOne({user_id:user._id});
-        // if(!userdata || !userdata.friends){
-        //     return res.status(200).json({friends : []});}
         const friendlist= user.trips[index].friendlist || [];
         res.status(200).json({friendlist});
     } catch(error){
@@ -279,11 +298,58 @@ app.post('/submitfrnds/:username/:index',async (req,res)=>{
 
 })
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//handle to save event details
+app.post('/Event',async(req,res)=>{
+    const {username,event,amount,selectedfriends}= req.body;
+    console.log(username,event,amount,selectedfriends);
+    try{
+        const Event =await connectTOeventcollection();
+        const update=await Event.updateOne(
+            {username:username},
+            {$push : {event : { eventname : event , amount :amount , friends : selectedfriends}}}
+        )
+        return res.status(200).json({meassage: "Successfull"});
+    }catch(error){
+        res.status(500).json({message:"Error ", error});
+    }
+})
+
+app.delete('/Event/:username/:index',async(req,res)=>{
+    const {username,index}= req.params;
+    const ind = parseInt(index);
+    try{
+        const collect =await connectTOeventcollection()
+        const userdocument = await collect.findOne({username});
+        if (!userdocument) {
+            return res.status(404).json({ message: 'User not found' });}
+        
+        const updated =userdocument.event;
+        updated.splice(ind,1);
+        const result = await collect.updateOne(
+            {username},
+            {$set :{event : updated}}
+        );
+        res.status(200).json({ message: 'Event deleted successfully', result });
+    }catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Failed to delete event', error: err });
+    }
+});
 
 
-
-
-
+//handle to send details to frontend
+app.get('/fetch/:username',async(req,res)=>{
+    const {username} = req.params;
+    try{
+    const userevent = await connectTOeventcollection();
+    const user = await userevent.findOne({username});
+    if(!user) return res.status(404).json({message:"Not found"});
+    return res.status(200).json({event:user.event})
+    }catch(error){
+        res.status(500).json({message:"Error fetching"});
+    }
+})
 
 
 
